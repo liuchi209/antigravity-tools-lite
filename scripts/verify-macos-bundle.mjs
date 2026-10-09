@@ -23,7 +23,7 @@ export function verifyMacosBundle(app, version, { strict = true } = {}) {
   if (field('CFBundleIdentifier') !== 'com.lbjlaq.antigravity-tools-lite') throw new Error('Unexpected bundle identifier');
   if (field('CFBundleExecutable') !== brand.executable) throw new Error('Unexpected bundle executable');
   if (field('CFBundleShortVersionString') !== version) throw new Error('Bundle version mismatch');
-  if (brand.app === 'AntiGravity Switch' &&
+  if (brand.app === 'Antigravity Tools Lite' &&
       (field('CFBundleName') !== brand.app || field('CFBundleDisplayName') !== brand.app)) throw new Error('Bundle display name mismatch');
   const executable = join(app, `Contents/MacOS/${brand.executable}`);
   regular(executable);

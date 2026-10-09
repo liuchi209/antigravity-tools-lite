@@ -82,11 +82,11 @@ test('4.9.1 requires both full display names even when the bundle signature is v
   const plist = join(app, 'Contents/Info.plist');
   const xml = readFileSync(plist, 'utf8').replace('<string>antigravity-tools</string>', '<string>agy-switch-desktop</string>')
     .replace('<string>4.7.7</string>', '<string>4.9.1</string>')
-    .replace('</dict>', '<key>CFBundleName</key><string>AntiGravity Switch</string><key>CFBundleDisplayName</key><string>AntiGravity Switch</string></dict>');
+    .replace('</dict>', '<key>CFBundleName</key><string>Antigravity Tools Lite</string><key>CFBundleDisplayName</key><string>Antigravity Tools Lite</string></dict>');
   writeFileSync(plist, xml); sign();
   assert.equal(verifyMacosBundle(app, '4.9.1').bundle_signature_integrity, 'verified');
   for (const key of ['CFBundleName', 'CFBundleDisplayName']) {
-    writeFileSync(plist, xml.replace(`<key>${key}</key><string>AntiGravity Switch</string>`, `<key>${key}</key><string>agy-switch</string>`));
+    writeFileSync(plist, xml.replace(`<key>${key}</key><string>Antigravity Tools Lite</string>`, `<key>${key}</key><string>agy-switch</string>`));
     sign(); assert.throws(() => verifyMacosBundle(app, '4.9.1'), /display name mismatch/);
   }
 }));
