@@ -140,7 +140,7 @@
     "open_failed": "Couldn't open data folder: {{error}}"
   },
   "common": {
-    "app_name": "AntiGravity Switch",
+    "app_name": "Antigravity Tools Lite",
     "loading": "Loading...",
     "save": "Save",
     "cancel": "Cancel",

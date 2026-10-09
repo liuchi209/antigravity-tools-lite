@@ -1,7 +1,7 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
   "productName": "agy-switch",
-  "version": "4.9.4",
+  "version": "4.9.5",
   "identifier": "com.lbjlaq.antigravity-tools-lite",
   "build": {
     "beforeDevCommand": "npm run dev",
@@ -39,16 +39,16 @@
       "icons/icon.ico"
     ],
     "macOS": {
-      "bundleName": "AntiGravity Switch",
+      "bundleName": "Antigravity Tools Lite",
       "infoPlist": "Info.plist",
       "entitlements": "Entitlements.plist"
     }
   },
   "plugins": {
     "updater": {
-      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IENEQkM3QjdEMTI1NEMwNjEKUldSaHdGUVNmWHU4elMzSW5qTGRIbzdxTmxvL2loZWFLUG9NMThVbmp1S3NQTmduSmI2ekk3NlMK",
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDhEN0NFMEY1RjJFQzJFQ0EKUldUS0x1enk5ZUI4amZyUitYcVdrTVBGL1luYWxEbnVwaFI3QnJxeEYvb09VR3doZzlrOFhKL1QK",
       "endpoints": [
-        "https://github.com/anglee0323/agy-switch/releases/latest/download/latest.json"
+        "https://github.com/liuchi209/antigravity-tools-lite/releases/latest/download/latest.json"
       ],
       "windows": {
         "installMode": "passive"

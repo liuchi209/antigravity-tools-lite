@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
-const RELEASE_ROOT: &str = "https://github.com/anglee0323/agy-switch/releases/tag/";
-const API_URL: &str = "https://api.github.com/repos/anglee0323/agy-switch/releases/latest";
+const RELEASE_ROOT: &str = "https://github.com/liuchi209/antigravity-tools-lite/releases/tag/";
+const API_URL: &str = "https://api.github.com/repos/liuchi209/antigravity-tools-lite/releases/latest";
 
 #[derive(Debug, Serialize)]
 pub struct UpdateInfo {
@@ -82,7 +82,7 @@ fn trusted_download(version: &str, url: &str) -> bool {
     let platform = if cfg!(target_os = "macos") { "macos-arm64.app.tar.gz" }
         else if cfg!(target_os = "windows") { "windows-x64-setup.exe" }
         else { "linux-amd64.deb" };
-    url == format!("https://github.com/anglee0323/agy-switch/releases/download/v{version}/agy-switch-{version}-{platform}")
+    url == format!("https://github.com/liuchi209/antigravity-tools-lite/releases/download/v{version}/agy-switch-{version}-{platform}")
 }
 
 /// Only a user-triggered command can download and install. The caller supplies no URL or path.
@@ -209,9 +209,9 @@ mod download_tests {
     #[test]
     fn updater_payload_is_pinned_to_repository_version_and_platform() {
         let suffix = if cfg!(target_os = "macos") { "macos-arm64.app.tar.gz" } else if cfg!(target_os = "windows") { "windows-x64-setup.exe" } else { "linux-amd64.deb" };
-        let valid = format!("https://github.com/anglee0323/agy-switch/releases/download/v4.9.0/agy-switch-4.9.0-{suffix}");
+        let valid = format!("https://github.com/liuchi209/antigravity-tools-lite/releases/download/v4.9.0/agy-switch-4.9.0-{suffix}");
         assert!(trusted_download("4.9.0", &valid));
-        for changed in [valid.replace("anglee0323", "attacker"), valid.replace("v4.9.0", "v4.8.1"), format!("{valid}?redirect=evil"), valid.replace("https:", "http:"), "file:///tmp/update".into()] { assert!(!trusted_download("4.9.0", &changed)); }
+        for changed in [valid.replace("liuchi209", "attacker"), valid.replace("v4.9.0", "v4.8.1"), format!("{valid}?redirect=evil"), valid.replace("https:", "http:"), "file:///tmp/update".into()] { assert!(!trusted_download("4.9.0", &changed)); }
         assert!(!trusted_download("4.9.0/path", &valid));
     }
 }
@@ -253,7 +253,7 @@ mod signature_metadata_tests {
     use base64::Engine;
     #[test]
     fn signed_filename_cannot_relabel_an_older_or_different_platform_package() {
-        let url = url::Url::parse("https://github.com/anglee0323/agy-switch/releases/download/v4.9.0/agy-switch-4.9.0-windows-x64-setup.exe").unwrap();
+        let url = url::Url::parse("https://github.com/liuchi209/antigravity-tools-lite/releases/download/v4.9.0/agy-switch-4.9.0-windows-x64-setup.exe").unwrap();
         let signed_comment = |filename: &str| base64::engine::general_purpose::STANDARD.encode(format!("untrusted comment: fixture\nfixture\ntrusted comment: timestamp:1\tfile:{filename}\nfixture\n"));
         assert!(signed_filename_matches(&signed_comment("agy-switch-4.9.0-windows-x64-setup.exe"), &url));
         for filename in ["agy-switch-4.8.1-windows-x64-setup.exe", "agy-switch-4.9.0-linux-amd64.deb", "agy-switch-4.9.0-windows-x64-setup.exe\tfile:other"] {

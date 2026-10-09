@@ -13,23 +13,23 @@ test('source app, npm, Rust and both languages agree on the new identity', () =>
   const version = json('package.json').version;
   assert.equal(validateSource(fileURLToPath(root), `v${version}`), version);
   assert.equal(json('package.json').name, 'agy-switch');
-  for (const lang of ['en', 'zh']) assert.equal(json(`src/locales/${lang}.json`).common.app_name, 'AntiGravity Switch');
+  for (const lang of ['en', 'zh']) assert.equal(json(`src/locales/${lang}.json`).common.app_name, 'Antigravity Tools Lite');
   const conf = json('src-tauri/tauri.conf.json');
   assert.equal(conf.productName, 'agy-switch');
   assert.equal(conf.mainBinaryName, 'agy-switch-desktop');
-  assert.equal(conf.bundle.macOS.bundleName, 'AntiGravity Switch');
+  assert.equal(conf.bundle.macOS.bundleName, 'Antigravity Tools Lite');
   assert.equal(conf.bundle.macOS.infoPlist, 'Info.plist');
-  assert.match(read('src-tauri/Info.plist').toString(), /<key>CFBundleDisplayName<\/key>\s*<string>AntiGravity Switch<\/string>/);
-  assert.match(read('src-tauri/src/modules/native_menu.rs').toString(), /const BRAND: &str = "AntiGravity Switch"/);
+  assert.match(read('src-tauri/Info.plist').toString(), /<key>CFBundleDisplayName<\/key>\s*<string>Antigravity Tools Lite<\/string>/);
+  assert.match(read('src-tauri/src/modules/native_menu.rs').toString(), /const BRAND: &str = "Antigravity Tools Lite"/);
   // Keep OS-managed settings identity and the existing account store stable.
   assert.equal(conf.identifier, 'com.lbjlaq.antigravity-tools-lite');
   assert.match(read('src-tauri/src/modules/account.rs').toString(), /const DATA_DIR: &str = "\.antigravity_tools"/);
   for (const platform of ['linux', 'windows']) assert.equal(json(`src-tauri/tauri.${platform}.conf.json`).app.windows[0].title, 'agy-switch');
-  assert.deepEqual(conf.plugins.updater.endpoints, ['https://github.com/anglee0323/agy-switch/releases/latest/download/latest.json']);
+  assert.deepEqual(conf.plugins.updater.endpoints, ['https://github.com/liuchi209/antigravity-tools-lite/releases/latest/download/latest.json']);
 });
 test('new desktop packages and signed updater formats use the same brand', () => {
   const version = '4.9.0';
-  assert.deepEqual(desktopBrand(version), { prefix: 'agy-switch', app: 'agy-switch', executable: 'agy-switch-desktop' });
+  assert.deepEqual(desktopBrand(version), { prefix: 'agy-switch', app: 'Antigravity Tools Lite', executable: 'agy-switch-desktop' });
   assert.deepEqual(packageNames(version), ['agy-switch-4.9.0-macos-arm64.zip', 'agy-switch-4.9.0-windows-x64-setup.exe',
     'agy-switch-4.9.0-linux-amd64.deb', 'agy-switch-4.9.0-windows-x64.zip', 'agy-switch-4.9.0-linux-amd64.tar.gz']);
   assert.deepEqual(updatePackages(version), { 'darwin-aarch64': 'agy-switch-4.9.0-macos-arm64.app.tar.gz',
@@ -37,7 +37,7 @@ test('new desktop packages and signed updater formats use the same brand', () =>
   assert.equal(packageNames('4.8.1')[0], 'Antigravity-Tools-Lite-4.8.1-macos-arm64.zip');
   assert.equal(updatePackages('4.8.1')['darwin-aarch64'], 'Antigravity-Tools-Lite-4.8.1-macos-arm64.app.tar.gz');
   assert.throws(() => desktopBrand('4.9.0/path'));
-  assert.deepEqual(desktopBrand('4.9.1'), { prefix: 'agy-switch', app: 'AntiGravity Switch', executable: 'agy-switch-desktop' });
+  assert.deepEqual(desktopBrand('4.9.1'), { prefix: 'agy-switch', app: 'Antigravity Tools Lite', executable: 'agy-switch-desktop' });
 });
 test('frontend and OS icons have the expected formats, dimensions and matching source', () => {
   const png = (file, size) => {

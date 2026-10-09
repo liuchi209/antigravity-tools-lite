@@ -4,5 +4,5 @@ export function desktopBrand(version) {
   const [major, minor, patch] = version.split('.').map(Number);
   return major < 4 || (major === 4 && minor < 9)
     ? { prefix: 'Antigravity-Tools-Lite', app: 'Antigravity Tools Lite', executable: 'antigravity-tools' }
-    : { prefix: 'agy-switch', app: major > 4 || minor > 9 || patch >= 1 ? 'AntiGravity Switch' : 'agy-switch', executable: 'agy-switch-desktop' };
+    : { prefix: 'agy-switch', app: 'Antigravity Tools Lite', executable: 'agy-switch-desktop' };
 }
